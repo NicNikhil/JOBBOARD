@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import InputFrom from '../components/shared/inputForm';
+import InputFrom from '../components/shared/InputFrom';
 
 const Register = () => {
     const [name, setName] = useState('');
@@ -28,14 +28,16 @@ const Register = () => {
                         height={150}
                         width={400}
                     />
-                    <InputFrom htmlFor="name"
+                    <InputFrom
+                        htmlFor="name"
                         labelText={"Name"}
                         type={'text'}
                         value={name}
                         handleChange={(e) => setName(e.target.value)}
                         name="name"
                     />
-                    <InputFrom htmlFor="lastname"
+                    <InputFrom
+                        htmlFor="lastname"
                         labelText={"LastName"}
                         type={'text'}
                         value={lastName}
@@ -43,7 +45,8 @@ const Register = () => {
                         name="lastname"
                     />
 
-                    <InputFrom htmlFor="email"
+                    <InputFrom
+                        htmlFor="email"
                         labelText={"email"}
                         type={"email"}
                         value={email}
@@ -51,7 +54,8 @@ const Register = () => {
                         name="email"
                     />
 
-                    <InputFrom htmlFor="password"
+                    <InputFrom
+                        htmlFor="password"
                         labelText={"Password"}
                         type={"password"}
                         value={password}

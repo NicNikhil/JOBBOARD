@@ -1,5 +1,5 @@
-import React from 'react';
-import InputFrom from '../components/shared/InputForm';
+import React, { useState } from 'react';
+import InputFrom from '../components/shared/InputFrom';
 import { Link } from 'react-router-dom'
 
 const Login = () => {
