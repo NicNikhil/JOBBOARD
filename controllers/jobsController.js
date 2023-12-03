@@ -1,4 +1,5 @@
 import jobsModels from "../models/jobsModels.js";
+import mongoose from "mongoose";
 // ==== Create Job ===== 
 export const createJobController = async (req, res, next) => {
     const { company, position } = req.body;
@@ -11,7 +12,7 @@ export const createJobController = async (req, res, next) => {
 };
 // =====GET JOBS=====
 export const getAllJobsController = async (req, res, next) => {
-    const jobs = await jobsModels.find({ createdBy: req.user.userId });
+    //const jobs = await jobsModels.find({ createdBy: req.user.userId });
     res.status(200).json({
         totalJobs: jobs.length,
         jobs,
@@ -60,4 +61,27 @@ export const deleteJobController = async (req, res, next) => {
     }
     await job.deleteOne();
     res.status(200).json({ message: 'Success, Job deleted' });
+};
+// ======== JOBS STATS AND FILTER =====
+export const jobStatsController = async (req, res) => {
+    const stats = await jobsModels.aggregate([
+        // search by user jobs
+        {
+            $match: {
+                createdBy: new mongoose.Types.ObjectId(req.user.userId)
+            },
+        },
+        {
+            $group: {
+                _id: '$status', count: { $sum: 1 }
+            },
+        },
+    ]);
+    //default stats
+    const defaultStats = {
+        pending: stats.pending || 0,
+        reject: stats.reject || 0,
+        interview: stats.interview || 0
+    }
+    res.status(200).json({ totalJobs: stats.length, defaultStats });
 };

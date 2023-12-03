@@ -7,6 +7,10 @@ import dotenv from "dotenv";
 import colors from "colors";
 import cors from 'cors';
 import morgan from "morgan";
+//security packages
+import helmet from "helmet";
+import xss from "xss-clean";
+import mongoSanitize from "express-mongo-sanitize";
 
 // files import
 import connectDB from "./config/db.js";
@@ -28,6 +32,9 @@ connectDB();
 const app = express();
 
 //middlewares
+app.use(helmet(``));
+app.use(xss());
+app.usw(mongoSanitize());
 app.use(express.json());
 app.use(cors());
 app.use(morgan("dev"));
