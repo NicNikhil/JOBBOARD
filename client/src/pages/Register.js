@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
+<<<<<<< HEAD
 import { Await, Link, useNavigate } from 'react-router-dom';
 import InputFrom from '../Components/shared/InputFrom';
+=======
+import { Link, useNavigate } from 'react-router-dom';
+import InputFrom from '../components/shared/InputFrom';
+>>>>>>> 46b04f1929ef61ef3c5dc059b4b6d48bdf062e16
 import { useDispatch, useSelector } from 'react-redux';
 import { hideloading, showloading } from '../redux/features/alertSlice';
 import axios from 'axios'
 import Spinner from '../components/shared/Spinner';
+import { toast } from 'react-toastify';
 const Register = () => {
     const [name, setName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -12,28 +18,28 @@ const Register = () => {
     const [password, setpassword] = useState('');
 
     //redux start
-    const { loading } = useSelector(state => state.alerts)
+    const { loading } = useSelector(state => state.alerts);
 
-    const dispatch = useDispatch()
-    const navigate = useNavigate()
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     //form function
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             if (!name || !lastName || !email || !password) {
-                return alert('Please Provide All Fields')
+                return toast.error('Please Provide All Fields')
             }
             dispatch(showloading())
-            const { data } = axios.post('/api/v1/auth/register', { name, lastName, email, password })
-            dispatch(hideloading())
+            const { data } = await axios.post('/api/v1/auth/register', { name, lastName, email, password });
+            dispatch(hideloading());
             if (data.success) {
-                alert('Register Successfully')
-                navigate('/dashboard')
+                toast.success('Register Successfully');
+                navigate('/login');
             }
         } catch (error) {
             dispatch(hideloading());
-            alert('Invalid Form Details Please Try Again')
+            toast.error('Invalid Form Details Please Try Again');
             console.log(error);
         }
 
@@ -47,6 +53,7 @@ const Register = () => {
                             alt='logo'
                             height={150}
                             width={400}
+
                         />
                         <InputFrom
                             htmlFor="name"
@@ -83,10 +90,6 @@ const Register = () => {
                             name="password"
                         />
 
-
-
-
-
                         <div className='d-flex justify-content-between'>
                             <p>
                                 Already Register<Link to="/login">Login</Link>
@@ -102,4 +105,4 @@ const Register = () => {
     );
 };
 
-export default Register
+export default Register;
