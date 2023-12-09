@@ -22,7 +22,8 @@ const HomePage = () => {
                         Not a user register <Link to="/register">Here!</Link>{" "}
                     </p>
                     <p>
-                        <Link to="/login" className="myBtn">Login</Link>
+                        <Link to
+                            ="/login" className="myBtn">Login</Link>
                     </p>
                 </div>
             </div>

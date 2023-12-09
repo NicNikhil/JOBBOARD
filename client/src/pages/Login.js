@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import InputFrom from '../components/shared/InputFrom';
+import InputFrom from './../Components/shared/InputFrom';
 import { Link } from 'react-router-dom'
+
 
 const Login = () => {
     const [email, setEmail] = useState('');

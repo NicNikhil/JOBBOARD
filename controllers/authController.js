@@ -1,7 +1,7 @@
 import userModels from "../models/userModels.js";
 
 export const registerController = async (req, res, next) => {
-    const { name, email, password } = req.body
+    const { name, email, password, lastName } = req.body
 
     //validate 
     if (!name) {
@@ -18,7 +18,7 @@ export const registerController = async (req, res, next) => {
         next('Email Already Register Please Login');
     }
 
-    const user = await userModels.create({ name, email, password });
+    const user = await userModels.create({ name, email, password, lastName });
     //token
     const token = user.createJWT()
     res.status(201).send({
